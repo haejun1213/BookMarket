@@ -6,7 +6,7 @@ public class BookStorage {
 	
 	ArrayList<Book> bookList = new ArrayList<>();
 
-	int numBooks;
+	final int MAX_QUANTITIY = 10;
 
 	public BookStorage() {
 		bookList.add(new Book(2401, "쉽게 배우는 자바 프로그래밍 2판", "우종정", "한빛아카데미", 20000));
@@ -38,6 +38,12 @@ public class BookStorage {
 			if (book.getBookId() == bookId) return book;
 		}
 		return null;
+	}
+
+
+	public int getMaxQuantitiy() {
+		// TODO Auto-generated method stub
+		return MAX_QUANTITIY;
 	}
 
 }

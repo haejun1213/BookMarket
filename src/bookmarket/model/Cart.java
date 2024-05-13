@@ -48,4 +48,41 @@ public class Cart {
 		}
 		return null;
 	}
+
+	private CartItem getCartItem(int bookId) {
+		for (CartItem item : itemList) {
+			if (item.bookId == bookId) {
+				return item;
+			}
+		}
+
+		return null;
+	}
+
+	public boolean isValidItem(int bookId) {
+
+		for (CartItem item : itemList) {
+			if (item.bookId == bookId)
+				return true;
+		}
+		return false;
+
+	}
+
+	public void deleteItem(int bookId) {
+		CartItem item = getCartItem(bookId);
+		itemList.remove(item);
+
+	}
+
+	public void updateQuantity(int bookId, int quantity) {
+
+		if (quantity == 0) {
+			deleteItem(bookId);
+		} else {
+			CartItem item = getCartItem(bookId);
+			item.setQuantity(quantity);
+		}
+
+	}
 }
