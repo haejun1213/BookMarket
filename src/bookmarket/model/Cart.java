@@ -5,50 +5,47 @@ import java.util.List;
 
 public class Cart {
 
-    ArrayList<CartItem> itemList = new ArrayList<>();
-    
-    public boolean isEmpty() {
-        return itemList.isEmpty();
-    }
+	private ArrayList<CartItem> itemList = new ArrayList<>();
 
-    public int getNumItem() {
-        return itemList.size();
-    }
+	public boolean isEmpty() {
+		return itemList.isEmpty();
+	}
 
-    public List<CartItem> getItemList() {
-        return itemList;
-    }
+	public int getNumItem() {
+		return itemList.size();
+	}
 
-    public String getItemInfo(int index) {
-        return itemList.get(index).toString();
-    }
+	public List<CartItem> getItemList() {
+		return itemList;
+	}
 
-    public void resetCart() {
-        itemList.clear();
-    }
+	public String getItemInfo(int index) {
+		return itemList.get(index).toString();
+	}
 
-    public void addItem(Book book) {
-        CartItem item = getCartItem(book);
-        if (item == null) {
-            itemList.add(new CartItem(book));
-        } else {
-            item.addQuantity(1);
-        }
-    }
-    
-    public void deleteItem(Book book) {
-    	
-    	
-    	
-    }
-    
-    
-    private CartItem getCartItem(Book book) {
-        for (CartItem item : itemList) {
-            if (item.getBook() == book) {
-                return item;
-            }
-        }
-        return null;
-    }
+	public void resetCart() {
+		itemList.clear();
+	}
+
+	public void addItem(Book book) {
+		CartItem item = getCartItem(book);
+		if (item == null) {
+			itemList.add(new CartItem(book));
+		} else {
+			item.addQuantity(1);
+		}
+	}
+
+	public void deleteItem(Book book) {
+
+	}
+
+	private CartItem getCartItem(Book book) {
+		for (CartItem item : itemList) {
+			if (item.getBook() == book) {
+				return item;
+			}
+		}
+		return null;
+	}
 }
