@@ -2,6 +2,7 @@ package bookmarket.controller;
 
 import bookmarket.model.BookStorage;
 import bookmarket.model.Cart;
+import bookmarket.model.Customer;
 import bookmarket.view.ConsoleView;
 
 public class BookMarketController {
@@ -9,6 +10,8 @@ public class BookMarketController {
 	ConsoleView view;
 	BookStorage mBookStorage;
 	Cart mCart;
+	Customer mCustomer;
+
 	String[] menuList = { "0. 종료", "1. 도서 정보 보기", "2. 장바구니 보기", "3. 장바구니에 도서 담기", "4. 장바구니 도서 삭제", "5. 장바구니 도서 수량 변경",
 			"6. 장바구니 비우기", "7. 주문" };
 
@@ -17,12 +20,13 @@ public class BookMarketController {
 		this.view = view;
 		this.mBookStorage = bookStorage;
 		this.mCart = cart;
-
+		mCustomer = new Customer();
 	}
 
 	public void start() {
 
 		view.displayWelcome();
+		view.inputCustomerInfo(mCustomer);
 
 		int menu;
 
@@ -30,6 +34,7 @@ public class BookMarketController {
 			menu = view.selectMenuNo(menuList);
 
 			switch (menu) {
+
 			case 1 -> viewBookInfo();
 
 			case 2 -> viewCart();
@@ -44,16 +49,45 @@ public class BookMarketController {
 
 			case 7 -> order();
 
-			default -> view.showMessage("잘못된 메뉴 번호입니다.");
+			case 0 -> end();
+
+			default -> view.showMessage(">> 잘못된 메뉴 번호입니다.");
 
 			}
 		} while (menu != 0);
-		view.showMessage("Haejun's BookMarket을 종료합니다.");
 
 	}
 
+	private void end() {
+		view.showMessage("Haejun's BookMarket을 종료합니다.");
+	}
+
 	private void order() {
-		// TODO Auto-generated method stub
+		if (!mCart.isEmpty()) {
+
+			addDeliveryInfo();
+
+			displayOrderInfo();
+
+			if (view.askConfirm(">> 주문하려면 \"yes\"를 입력하세요 : ", "yes")) {
+				mCart.resetCart();
+				view.showMessage(">> 주문을 완료했습니다.");
+			} else {
+				view.showMessage(">> 주문을 취소했습니다.");
+			}
+		} else {
+			view.displayCart(mCart);
+		}
+	}
+
+	private void displayOrderInfo() {
+		view.displayCart(mCart);
+		view.displayDeliveryInfo(mCustomer);
+	}
+
+	private void addDeliveryInfo() {
+		view.inputDeliveryInfo(mCustomer);
+
 	}
 
 	private void updateBookInCart() {

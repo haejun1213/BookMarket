@@ -27,7 +27,12 @@ public class CartItem {
 	public void addQuantity(int quantity) {
 		this.quantity += quantity;
 	}
+	
+	public int getPrice() {
+		return book.getPrice() * quantity;
+	}
+	
 	public String toString() {
-		return book.getBookId() + ", " + book.getTitle() + ", " + book.getPrice() + "원, " + quantity + "권";
+		return book.getBookId() + ", " + book.getTitle() + ", " + quantity + "권, " + getPrice() + "원";
 }
 }
