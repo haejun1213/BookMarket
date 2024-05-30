@@ -1,5 +1,7 @@
 package bookmarket;
 
+import java.io.IOException;
+
 import bookmarket.controller.BookMarketController;
 import bookmarket.model.BookStorage;
 import bookmarket.model.Cart;
@@ -7,7 +9,7 @@ import bookmarket.view.ConsoleView;
 
 public class BookMarket {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		// model 생성
 		BookStorage bookStorage = new BookStorage();

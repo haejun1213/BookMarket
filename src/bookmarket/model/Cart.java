@@ -36,9 +36,6 @@ public class Cart {
 		}
 	}
 
-	public void deleteItem(Book book) {
-
-	}
 
 	private CartItem getCartItem(Book book) {
 		for (CartItem item : itemList) {

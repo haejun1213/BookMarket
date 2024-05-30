@@ -21,8 +21,3 @@ public abstract class User {
 }
 
 
-class Adim extends User {
-	
-	private String id;
-	private String password;
-}

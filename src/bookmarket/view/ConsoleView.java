@@ -1,6 +1,7 @@
 package bookmarket.view;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import bookmarket.model.BookStorage;
 import bookmarket.model.Cart;
@@ -10,9 +11,43 @@ public class ConsoleView {
 
 	public void displayWelcome() {
 
-		String welcome = "*****************************************\n" + "*    Welcome to Haejun's Book Market    *\n"
-				+ "*****************************************";
-		System.out.println(welcome);
+		String welcome2 = "   Welcome to Haejun's Book Market   ";
+
+		for (int i = 0; i < 39; i++) {
+			flowTime(80);
+			System.out.print("*");
+		}
+		System.out.println();
+		System.out.print("*");
+		char[] charArr = welcome2.toCharArray();
+		for (int i = 0; i < charArr.length; i++) {
+			flowTime(50);
+			System.out.print(charArr[i]);
+		}
+		System.out.print("*");
+		System.out.println();
+		for (int i = 0; i < 39; i++) {
+			flowTime(50);
+			System.out.print("*");
+		}
+		System.out.println();
+		flowTime(200);
+//		String welcome = "*****************************************\n" + "*    Welcome to Haejun's Book Market    *\n"
+//				+ "*****************************************";
+//		System.out.println(welcome);
+
+	}
+
+	void flowTime(int time) {
+		sleep(time);
+	}
+
+	private void sleep(int i) {
+		try {
+			TimeUnit.MILLISECONDS.sleep(i);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -139,11 +174,20 @@ public class ConsoleView {
 		customer.setPhone(sc.nextLine());
 	}
 
-	public void displayDeliveryInfo(Customer customer) {
-		
-		System.out.println("주소 : " + customer.getAddress());
-		System.out.println("메일 : " + customer.getEmail());
-		
+	public void displayDeliveryInfo(Cart cart, Customer customer) {
+
+		System.out.println();
+		// 장바구니 보여주기
+		System.out.println("***** 주문할 도서 ******");
+		displayCart(cart);
+
+		// 배송 정보 보여주기 - 고객 이름, 전화번호, 주소, 이메일주소
+		System.out.println("***** 배송 정보 ******");
+		System.out.println(">> 이름 : " + customer.getName());
+		System.out.println(">> 전화번호 : " + customer.getPhone());
+		System.out.println(">> 이메일 : " + customer.getEmail());
+		System.out.println(">> 주소 : " + customer.getAddress());
+
 	}
 
 	public void inputDeliveryInfo(Customer customer) {
@@ -156,6 +200,12 @@ public class ConsoleView {
 			customer.setEmail(sc.nextLine());
 		}
 
+	}
+
+	public String inputString(String message) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print(message);
+		return sc.nextLine();
 	}
 
 }
