@@ -1,6 +1,7 @@
 package bookmarket.controller;
 
 import bookmarket.model.Admin;
+import bookmarket.model.Book;
 import bookmarket.model.BookStorage;
 import bookmarket.model.Cart;
 import bookmarket.model.Customer;
@@ -98,15 +99,41 @@ public class BookMarketController {
 	}
 
 	private void addBook2Storage() {
-		// TODO Auto-generated method stub
+		view.showMessage("새로운 책을 추가합니다");
+
+		mBookStorage.addBook(view.inputString("책 제목 : "), view.inputString("저자 : "), view.inputString("출판사 : "), view.inputPrice("가격 : "));
+		
+	
 	}
 
 	private void deleteBookInStorage() {
-		// TODO Auto-generated method stub
+		
+		
+		if (mBookStorage.isEmpty()) {
+			view.showMessage("책 창고에 책이 없습니다.");
+			return;
+		}
+		viewBookInfo();
+			// 도서 ID 입력받기
+		int bookId = view.selectBookId(mBookStorage);
+			if (view.askConfirm(">> 해당 도서를 삭제하려면 \"yes\"를 입력하세요 : ", "yes")) {
+				// 해당 도서 ID의 cartItem삭제
+				mBookStorage.deleteItem(bookId);
+				view.showMessage(">> 해당 도서를 삭제했습니다.");
+			} else {
+				view.showMessage(">> 해당 도서를 삭제하지 않았습니다.");
+			}
+		
 	}
 
 	private void saveBookList2File() {
-		// TODO Auto-generated method stub
+		
+		if(mBookStorage.isSaved()) {
+			view.showMessage("저장할 변경사항이 없습니다.");
+		} else {
+			mBookStorage.saveBookList2File();
+			view.showMessage("책을 저장했습니다.");
+		}
 	}
 
 	private void adminEnd() {

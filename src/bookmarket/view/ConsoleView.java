@@ -11,30 +11,30 @@ public class ConsoleView {
 
 	public void displayWelcome() {
 
-		String welcome2 = "   Welcome to Haejun's Book Market   ";
-
-		for (int i = 0; i < 39; i++) {
-			flowTime(80);
-			System.out.print("*");
-		}
-		System.out.println();
-		System.out.print("*");
-		char[] charArr = welcome2.toCharArray();
-		for (int i = 0; i < charArr.length; i++) {
-			flowTime(50);
-			System.out.print(charArr[i]);
-		}
-		System.out.print("*");
-		System.out.println();
-		for (int i = 0; i < 39; i++) {
-			flowTime(50);
-			System.out.print("*");
-		}
-		System.out.println();
-		flowTime(200);
-//		String welcome = "*****************************************\n" + "*    Welcome to Haejun's Book Market    *\n"
-//				+ "*****************************************";
-//		System.out.println(welcome);
+//		String welcome2 = "   Welcome to Haejun's Book Market   ";
+//
+//		for (int i = 0; i < 39; i++) {
+//			flowTime(80);
+//			System.out.print("*");
+//		}
+//		System.out.println();
+//		System.out.print("*");
+//		char[] charArr = welcome2.toCharArray();
+//		for (int i = 0; i < charArr.length; i++) {
+//			flowTime(50);
+//			System.out.print(charArr[i]);
+//		}
+//		System.out.print("*");
+//		System.out.println();
+//		for (int i = 0; i < 39; i++) {
+//			flowTime(50);
+//			System.out.print("*");
+//		}
+//		System.out.println();
+//		flowTime(200);
+		String welcome = "*****************************************\n" + "*    Welcome to Haejun's Book Market    *\n"
+				+ "*****************************************";
+		System.out.println(welcome);
 
 	}
 
@@ -59,7 +59,7 @@ public class ConsoleView {
 		do {
 			System.out.print(">> 메뉴 선택 : ");
 
-			menu = inputNumberWithValidation();
+			menu = inputNumberWithValidation(">> 숫자를 입력하세요: ");
 
 			if (menu < 0 || menu >= menuList.length)
 				System.out.println(">> 0부터 " + (menuList.length - 1) + "번 사이의 숫자를 입력하세요.");
@@ -120,8 +120,8 @@ public class ConsoleView {
 		int bookId;
 		boolean result;
 		do {
-			System.out.print(">> 추가할 도서의 ID를 입력하세요 : ");
-			bookId = inputNumberWithValidation();
+			System.out.print(">> 도서의 ID를 입력하세요 : ");
+			bookId = inputNumberWithValidation(">> 숫자를 입력하세요: ");
 			result = BookStorage.isValidBook(bookId);
 			if (!result)
 				System.out.println(">> 잘못된 도서의 ID입니다.");
@@ -135,7 +135,7 @@ public class ConsoleView {
 		boolean result;
 		do {
 			System.out.print(">> 도서의 ID를 입력하세요 : ");
-			bookId = inputNumberWithValidation();
+			bookId = inputNumberWithValidation(">> 숫자를 입력하세요: ");
 			result = cart.isValidItem(bookId);
 			if (!result)
 				System.out.println(">> 잘못된 도서의 ID입니다.");
@@ -147,21 +147,21 @@ public class ConsoleView {
 		int number;
 		do {
 			System.out.print(">> 수량 입력 (" + min + " ~ " + max + "): ");
-			number = inputNumberWithValidation();
+			number = inputNumberWithValidation(">> 숫자를 입력하세요: ");
 			if (number < min || number > max)
 				System.out.println(">> 잘못된 수량입니다.");
 		} while (number < min || number > max);
 		return number;
 	}
 
-	private int inputNumberWithValidation() {
+	public int inputNumberWithValidation(String message) {
 		Scanner sc = new Scanner(System.in);
 		try {
 			int number = sc.nextInt();
 			return number;
 		} catch (Exception e) {
-			System.out.print(">> 숫자를 입력하세요: ");
-			return inputNumberWithValidation();
+			System.out.print(message);
+			return inputNumberWithValidation(message);
 		}
 	}
 
@@ -207,5 +207,17 @@ public class ConsoleView {
 		System.out.print(message);
 		return sc.nextLine();
 	}
+
+	public int inputPrice(String message) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print(message);
+		try {
+			int number = sc.nextInt();
+			return number;
+		} catch (Exception e) {
+			return inputPrice(message);
+		}
+	}
+
 
 }
